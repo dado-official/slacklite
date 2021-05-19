@@ -3,17 +3,20 @@ import {MdKeyboardArrowDown} from 'react-icons/md'
 import {MdCreate} from 'react-icons/md'
 import {MdWidgets} from 'react-icons/md'
 import {MdMoreVert} from 'react-icons/md'
+import ChannelsComponent from './ChannelsComponent'
+import DirektnachrichtenComponent from './DirektnachrichtenComponent'
+import Abo from './Abo'
 
 export default function Sidebar() {
     
     return (
-        <div className=" h-full w-21.438 bg-primary z-0">
-            <div className="text-white font-bold text-xl p-1.875 h-hUserCont border-t border-b border-bordercolor flex flex-row items-center justify-between">
+        <div className=" h-95pro w-3/6 bg-primary z-0">
+            <div className="text-white font-bold text-md p-3 px-5 h-16 border-t border-b border-bordercolor flex flex-row items-center justify-between">
                 <div className=" flex flex-row items-center">
                     <p className="mr-1">Dado</p>
-                    <MdKeyboardArrowDown color="white" size="25px"></MdKeyboardArrowDown>
+                    <MdKeyboardArrowDown color="white" size="20px"></MdKeyboardArrowDown>
                 </div>
-                <div className="bg-white w-11 h-11 rounded-full flex flex-row items-center justify-evenly">
+                <div className="bg-white w-9 h-9 rounded-full flex flex-row items-center justify-evenly">
                     <MdCreate color="#3F0E40"></MdCreate>
                 </div>
             </div>
@@ -27,6 +30,9 @@ export default function Sidebar() {
                     <p className="ml-2">Slack durchsuchen</p>
                 </div>
             </div>
+            <ChannelsComponent></ChannelsComponent>
+            <DirektnachrichtenComponent></DirektnachrichtenComponent>
+            <Abo></Abo>
         </div>
     )
 }
