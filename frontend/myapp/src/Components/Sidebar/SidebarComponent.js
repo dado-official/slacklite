@@ -10,7 +10,7 @@ import Abo from './Abo'
 export default function Sidebar() {
     
     return (
-        <div className=" h-95pro w-3/6 bg-primary z-0">
+        <div className=" h-full w-21.438 bg-primary z-0">
             <div className="text-white font-bold text-md p-3 px-5 h-16 border-t border-b border-bordercolor flex flex-row items-center justify-between">
                 <div className=" flex flex-row items-center">
                     <p className="mr-1">Dado</p>
