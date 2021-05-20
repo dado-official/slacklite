@@ -12,11 +12,11 @@ export default function MainComponent() {
             
             <div className=" h-full flex flex-row">
                 <Sidebar></Sidebar>
-                <div className=" h-full w-full">
+                <div className=" h-full w-full min-h-screen flex flex-col justify-between">
                     <div className="w-full h-16 border-b border-gray-400 p-2">
                         <Kanal name="#kanal"></Kanal>
                     </div>
-                    <TextField></TextField>
+                    <TextField></TextField> 
                     <MessageInputComponent></MessageInputComponent>
                 </div>
             </div>

@@ -1,7 +1,10 @@
 import React,{useState} from 'react'
 import {AiOutlineThunderbolt, AiFillThunderbolt, AiOutlineStrikethrough} from 'react-icons/ai'
-import {GoBold,GoItalic} from 'react-icons/go'
-import {BiCodeAlt} from 'react-icons/bi'
+import {GoBold,GoItalic, GoMention} from 'react-icons/go'
+import {BiCodeAlt, BiLink, BiCodeBlock, BiSmile} from 'react-icons/bi'
+import {BsListOl, BsListTask, BsBlockquoteLeft} from 'react-icons/bs'
+import {FaRemoveFormat} from 'react-icons/fa'
+import {IoMdSend} from 'react-icons/io'
 
 export default function ToolBar({Action}) {
     return (
@@ -24,34 +27,34 @@ export default function ToolBar({Action}) {
                     <BiCodeAlt></BiCodeAlt>
                 </div>
                 <div className="w-7 h-7 hover:bg-gray-300 flex flex-row items-center justify-center rounded-sm">
-                    d
+                    <BiLink></BiLink>
                 </div>
                 <div className="w-7 h-7 hover:bg-gray-300 flex flex-row items-center justify-center rounded-sm">
-                    d
+                    <BsListOl></BsListOl>
                 </div>
                 <div className="w-7 h-7 hover:bg-gray-300 flex flex-row items-center justify-center rounded-sm">
-                    d
+                    <BsListTask></BsListTask>
                 </div>
                 <div className="w-7 h-7 hover:bg-gray-300 flex flex-row items-center justify-center rounded-sm">
-                    d
+                    <BsBlockquoteLeft></BsBlockquoteLeft>
                 </div>
                 <div className="w-7 h-7 hover:bg-gray-300 flex flex-row items-center justify-center rounded-sm">
-                    d
+                    <BiCodeBlock></BiCodeBlock>
                 </div>
             </div>
             
             <div className="flex flex-row items-center">
                 <div className="w-7 h-7 hover:bg-gray-300 flex flex-row items-center justify-center rounded-sm">
-                    d
+                    <FaRemoveFormat></FaRemoveFormat>
                 </div>
                 <div className="w-7 h-7 hover:bg-gray-300 flex flex-row items-center justify-center rounded-sm">
-                    d
+                    <GoMention></GoMention>
                 </div>
                 <div className="w-7 h-7 hover:bg-gray-300 flex flex-row items-center justify-center rounded-sm">
-                    d
+                    <BiSmile></BiSmile>
                 </div>
                 <div className="w-7 h-7 hover:bg-gray-300 flex flex-row items-center justify-center rounded-sm">
-                    d
+                    <IoMdSend></IoMdSend>
                 </div>
             </div>
         </div>
