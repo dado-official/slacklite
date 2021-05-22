@@ -6,7 +6,7 @@ import TextField from './MainField/TextField'
 import Sidebar from './Sidebar/SidebarComponent'
 
 
-export default function MainComponent() {
+export default function MainComponent({socket}) {
     return (
         <div className="h-full w-full">
             
@@ -16,8 +16,8 @@ export default function MainComponent() {
                     <div className="w-full h-16 border-b border-gray-400 p-2">
                         <Kanal name="#kanal"></Kanal>
                     </div>
-                    <TextField></TextField> 
-                    <MessageInputComponent></MessageInputComponent>
+                    <TextField socket={socket}></TextField> 
+                    <MessageInputComponent socket={socket}></MessageInputComponent>
                 </div>
             </div>
         </div>
