@@ -1,9 +1,12 @@
 import React,{useState} from 'react'
 import {MdClose} from 'react-icons/md'
-export default function DirektnachrichtKontakt({name, profImg}) {
+import { Link } from "react-router-dom";
+export default function DirektnachrichtKontakt({name, profImg, id}) {
     const [Hover, setHover] = useState(false)
     return (
-        <div  className="p-1 pl-12 pr-4 text-notselected hover:text-white hover:bg-secondary flex flex-row items-center justify-between"
+        <Link  
+            to={"/kontakt/" + id}
+            className="p-1 pl-12 pr-4 text-notselected hover:text-white hover:bg-secondary flex flex-row items-center justify-between"
             onMouseEnter={()=> setHover(true)}
             onMouseLeave={()=> setHover(false)}
         >
@@ -15,6 +18,6 @@ export default function DirektnachrichtKontakt({name, profImg}) {
             </div>
             {Hover === true ? <MdClose></MdClose> : null}
             
-        </div>
+        </Link>
     )
 }

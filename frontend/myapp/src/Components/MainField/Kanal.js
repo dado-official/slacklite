@@ -5,6 +5,8 @@ import {AiOutlineUserAdd} from 'react-icons/ai'
 export default function Kanal({name}) {
     const [Fav, setFav] = useState(false)
 
+     //get kanal infos from db
+
     return (
         <div className="flex flex-row items-center justify-between">
             <div>

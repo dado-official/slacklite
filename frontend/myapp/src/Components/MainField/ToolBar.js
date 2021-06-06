@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import {AiOutlineThunderbolt, AiFillThunderbolt, AiOutlineStrikethrough} from 'react-icons/ai'
 import {GoBold,GoItalic, GoMention} from 'react-icons/go'
 import {BiCodeAlt, BiLink, BiCodeBlock, BiSmile} from 'react-icons/bi'
@@ -6,19 +6,21 @@ import {BsListOl, BsListTask, BsBlockquoteLeft} from 'react-icons/bs'
 import {FaRemoveFormat} from 'react-icons/fa'
 import {IoMdSend} from 'react-icons/io'
 
-import io from "socket.io-client";
-let socket = io.connect("http://localhost:5000");
+import socketIOClient from "socket.io-client";
 
 
 export default function ToolBar({Action, message, socket}) {
 
     
-
-    function sendClickHandler(){
-        //console.log(message)
-        socket.emit('room', message);
+    function sendMessage(e){
+        e.preventDefault();
+         console.log("sendmessage")
+         if (message) {
+             console.log("message !== null")
+             socket.emit('chat message',message);
+         }
     }
-
+  
     return (
         <div className={`w-full h-10 bg-${Action === true ? "gray-100": "white"} p-2 rounded-b-md flex flex-row items-center justify-between`}>
             <div className="flex flex-row items-center ">
@@ -65,7 +67,9 @@ export default function ToolBar({Action, message, socket}) {
                 <div className="w-7 h-7 hover:bg-gray-300 flex flex-row items-center justify-center rounded-sm">
                     <BiSmile></BiSmile>
                 </div>
-                <div onClick={sendClickHandler} className="w-7 h-7 hover:bg-gray-300 flex flex-row items-center justify-center rounded-sm">
+                <div className="w-7 h-7 hover:bg-gray-300 flex flex-row items-center justify-center rounded-sm"
+                    onClick={(e) => sendMessage(e)}    
+                >
                     <IoMdSend ></IoMdSend>
                 </div>
             </div>

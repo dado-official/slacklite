@@ -5,8 +5,13 @@ import {MdAdd} from 'react-icons/md'
 import ChannelComponent from './ChannelComponent'
 
 
-export default function ChannelsComponent() {
+export default function ChannelsComponent({channels}) {
     const [hoverChannelHeader, setHoverChannelHeader] = useState(false)
+
+    let list ;
+    if (channels) {
+        list = channels.map(c => <ChannelComponent key={c.id} id={c.id} name={c.name} participants={c.participants}></ChannelComponent>);
+    }
 
     return (
         <div>
@@ -33,18 +38,8 @@ export default function ChannelsComponent() {
                     </div> 
                 :null}      
             </div>
-            <ChannelComponent name="channel 1" profImg=""></ChannelComponent>
-            <ChannelComponent name="channel 1" profImg=""></ChannelComponent>
-            <ChannelComponent name="channel 1" profImg=""></ChannelComponent>
-            <ChannelComponent name="channel 1" profImg=""></ChannelComponent>
 
-            <div className=" text-notselected hover:bg-secondary hover:text-white flex flex-row items-center pl-12 p-1">
-                <div className="w-5 h-5 bg-hover rounded-md flex flex-row items-center justify-evenly">
-                    <MdAdd></MdAdd>
-                </div>
-                <p className="pl-1">Channels hinzufügen</p>
-            </div>
-            
+            {list}           
         </div>
     )
 }
