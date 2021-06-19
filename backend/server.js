@@ -11,9 +11,21 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log("client connected")
+
+  //client join all saved rooms
+  socket.on('joinRooms', msg => {
+      msg.map((room) => socket.join(room.roomId))
+  })
+
+  //client join specific room
+  socket.on('joinRoom', msg => {
+       socket.join(msg.roomId) 
+  })
+
+  //handle messages from clients
   socket.on('chat message', msg => {
     console.log("message from client" , msg)
-    io.emit('chat message', msg);
+    io.to(msg.room.roomId).emit('chat message', msg);
   });
 });
 

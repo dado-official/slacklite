@@ -9,16 +9,20 @@ import {IoMdSend} from 'react-icons/io'
 import socketIOClient from "socket.io-client";
 
 
-export default function ToolBar({Action, message, socket}) {
+export default function ToolBar({Action, message, socket, currentRoom, credentials}) {
 
     
     function sendMessage(e){
         e.preventDefault();
-         console.log("sendmessage")
-         if (message) {
-             console.log("message !== null")
-             socket.emit('chat message',message);
-         }
+        let messageBlock = {
+            room : currentRoom,
+            messageContent : message,
+            sender: credentials.username,
+            date: new Date().toLocaleString()
+        };
+        if (message) {
+            socket.emit('chat message',messageBlock);
+        }
     }
   
     return (

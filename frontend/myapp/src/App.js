@@ -17,6 +17,32 @@ function App() {
   
   const { token, setToken } = useToken("");
   const [socket, setSocket] = useState()
+  const [credentials, setcredentials] = useState()
+
+    //get All rooms
+    let rooms = 
+    [
+      {
+          roomId:0,
+          name:"BestChannel"
+      },{
+          roomId:1,
+          name:"BestChannel"
+      }
+    ]
+  
+    //get All Kontkte
+    let kontakte = 
+    [
+      {
+        id:0,
+        username:"Seppele"
+      },{
+        id:1,
+        username:"Hansele"
+      }
+    ]
+  const [currentRoom, setCurrentRoom] = useState(rooms[0])
 
   useEffect(() => {
     if(!token){
@@ -33,28 +59,14 @@ function App() {
     console.log("socket definited")
   }, [])
 
-  //get All channels
-  let channels = 
-  [
-    {
-        id:1,
-        name:"BestChannel",
-        partecipants:10
+  useEffect(() => {
+    //join all Rooms
+    if(socket){
+      socket.emit('joinRooms', rooms)
     }
-  ]
+  }, [socket])
 
 
-  //get All Kontkte
-  let kontakte = 
-  [
-    {
-      id:1,
-      username:"Seppele"
-    },{
-      id:2,
-      username:"Hansele"
-    }
-  ]
 
   return (
     <Router>
@@ -63,22 +75,22 @@ function App() {
           {token != null ? <Redirect to="/home" /> : <Redirect to="/login" />}
         </Route>
         <Route path="/register" exact>
-          <MainRegister setToken={setToken}></MainRegister>
+          <MainRegister setToken={setToken} setcredentials={setcredentials}></MainRegister>
         </Route>
         <Route path="/login" exact>
-          <MainLogin setToken={setToken}></MainLogin>
+          <MainLogin setToken={setToken} setcredentials={setcredentials}></MainLogin>
         </Route>
         <Route path="/home" exact>
-          <Sidebar channels={channels} kontakte={kontakte}></Sidebar>
-          <MainComponent socket={socket}></MainComponent>
+          <Sidebar rooms={rooms} kontakte={kontakte} setCurrentRoom={setCurrentRoom}></Sidebar>
+          <MainComponent socket={socket} currentRoom={currentRoom} credentials={credentials}></MainComponent>
         </Route>
         <Route path="/channel/:id" exact>
-          <Sidebar channels={channels} kontakte={kontakte}></Sidebar>
-          <MainComponent socket={socket}></MainComponent>
+          <Sidebar rooms={rooms} kontakte={kontakte} setCurrentRoom={setCurrentRoom}></Sidebar>
+          <MainComponent socket={socket} currentRoom={currentRoom} credentials={credentials}></MainComponent>
         </Route>
         <Route path="/kontakt/:id" exact>
-          <Sidebar channels={channels} kontakte={kontakte}></Sidebar>
-          <MainComponent socket={socket}></MainComponent>
+          <Sidebar rooms={rooms} kontakte={kontakte} setCurrentRoom={setCurrentRoom}></Sidebar>
+          <MainComponent socket={socket} currentRoom={currentRoom} credentials={credentials}></MainComponent>
         </Route>
       </Switch>
     </Router>

@@ -19,7 +19,7 @@ async function loginUser(credentials) {
 }
 
 
-export default function MainRegister({setToken}) {
+export default function MainRegister({setToken, setcredentials}) {
 
   const history = useHistory()
   const [username, setUserName] = useState("");
@@ -36,6 +36,11 @@ export default function MainRegister({setToken}) {
         });
         console.log("token")
         setToken(token);
+        setcredentials(
+          {
+            username:username,
+          }
+        )
         history.push("/home")
 
     }

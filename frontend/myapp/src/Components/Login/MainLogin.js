@@ -18,7 +18,7 @@ async function loginUser(credentials) {
 }
 
 
-export default function MainLogin({setToken}) {
+export default function MainLogin({setToken, setcredentials}) {
 
   const history = useHistory()
 
@@ -32,7 +32,12 @@ export default function MainLogin({setToken}) {
           username,
           password
         });
-        setToken(token);
+        //setToken(token);
+        setcredentials(
+          {
+            username:username,
+          }
+        )
         history.push("/home")
     }
     

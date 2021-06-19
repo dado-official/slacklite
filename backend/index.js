@@ -18,7 +18,7 @@ app.post('/register', (req, res) => {
   });
 });
 
-app.listen(5000, () => console.log('API is running on http://localhost:5000/login'));
+app.listen(5000, () => console.log('API is running on http://localhost:5000/'));
 
 /* const express = require("express");
 const app = express();

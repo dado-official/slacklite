@@ -5,12 +5,11 @@ import {MdAdd} from 'react-icons/md'
 import ChannelComponent from './ChannelComponent'
 
 
-export default function ChannelsComponent({channels}) {
+export default function ChannelsComponent({rooms, setCurrentRoom}) {
     const [hoverChannelHeader, setHoverChannelHeader] = useState(false)
-
     let list ;
-    if (channels) {
-        list = channels.map(c => <ChannelComponent key={c.id} id={c.id} name={c.name} participants={c.participants}></ChannelComponent>);
+    if (rooms) {
+        list = rooms.map(c => <ChannelComponent setCurrentRoom={setCurrentRoom} room={c}></ChannelComponent>);
     }
 
     return (

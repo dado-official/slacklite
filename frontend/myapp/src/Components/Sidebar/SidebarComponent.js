@@ -7,7 +7,7 @@ import ChannelsComponent from './ChannelsComponent'
 import DirektnachrichtenComponent from './DirektnachrichtenComponent'
 import Abo from './Abo'
 
-export default function Sidebar({channels, kontakte}) {
+export default function Sidebar({rooms, kontakte, setCurrentRoom}) {
     
     return (
         <div className=" h-screen w-64 fixed bg-primary top-0">
@@ -30,9 +30,11 @@ export default function Sidebar({channels, kontakte}) {
                     <p className="ml-2">Slack durchsuchen</p>
                 </div>
             </div>
-            <ChannelsComponent channels={channels} ></ChannelsComponent>
-            <DirektnachrichtenComponent kontakte={kontakte}></DirektnachrichtenComponent>
+            <ChannelsComponent rooms={rooms} setCurrentRoom={setCurrentRoom}></ChannelsComponent>
             
         </div>
     )
 }
+
+
+//<DirektnachrichtenComponent kontakte={kontakte}></DirektnachrichtenComponent>
