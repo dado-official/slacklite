@@ -56,13 +56,14 @@ export default function TextField({socket, currentRoom}) {
     useEffect(() => {
         if(socket){
             socket.on("chat message", function(msg) {  
+                console.log(msg)
                 setnewMessage(msg)
             });
         }
     }, [socket])
 
     return (
-        <div className=" flex-grow justify-center overflow-y-auto overflow-x-hidden">
+        <div className="h-full w- full justify-center overflow-y-auto overflow-x-hidden ">
             {listState}
         </div>
     )

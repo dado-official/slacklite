@@ -26,7 +26,7 @@ export default function ToolBar({Action, message, socket, currentRoom, credentia
     }
   
     return (
-        <div className={`w-full h-10 bg-${Action === true ? "gray-100": "white"} p-2 rounded-b-md flex flex-row items-center justify-between`}>
+        <div className={`w-full h-10 bg-${Action === true ? "gray-100": "white"} p-2 overflow-x-auto overflow-y-hidden rounded-b-md flex flex-row items-center justify-between`}>
             <div className="flex flex-row items-center ">
 
                 <div className="w-7 h-7 hover:bg-gray-300 flex flex-row items-center justify-center rounded-sm">

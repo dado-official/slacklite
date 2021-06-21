@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import "tailwindcss/tailwind.css"
-import MainComponent from './Components/MainComponent';
+import MainComponent from './Components/MainField/MainComponent';
 import MainLogin from './Components/Login/MainLogin';
 import React,{useEffect, useState, } from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
@@ -13,60 +13,59 @@ import socketIOClient from "socket.io-client";
 
 const ENDPOINT = "http://127.0.0.1:3333"
 
+async function fetchAllChannels() {
+  return fetch('http://localhost:5000/channel', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(data => data.json())
+}
+
+
 function App() {
   
   const { token, setToken } = useToken("");
   const [socket, setSocket] = useState()
-  const [credentials, setcredentials] = useState()
+  const [credentials, setcredentials] = useState({
+    username:"username"
+  })
+  const [rooms, setrooms] = useState()
+  const [openSidebar, setOpenSidebar] = useState(true);
 
-    //get All rooms
-    let rooms = 
-    [
-      {
-          roomId:0,
-          name:"BestChannel"
-      },{
-          roomId:1,
-          name:"BestChannel"
-      }
-    ]
-  
-    //get All Kontkte
-    let kontakte = 
-    [
-      {
-        id:0,
-        username:"Seppele"
-      },{
-        id:1,
-        username:"Hansele"
-      }
-    ]
-  const [currentRoom, setCurrentRoom] = useState(rooms[0])
+  let initialroom = {
+    name: "welcome",
+    roomId : 9999
+  }
+  const [currentRoom, setCurrentRoom] = useState(initialroom)
+
+  useEffect(async() => {
+    setrooms(await fetchAllChannels())
+    console.log("rooms loaded")
+    if(socket){
+      socket.emit('joinRooms', rooms)
+    }
+  }, [])
 
   useEffect(() => {
-    if(!token){
-      console.log("no token")
-     
-    } else {
-      console.log("have Token")
+    if(localStorage.getItem('token')){
+      setcredentials({username:localStorage.getItem('token').replaceAll("\"","" )})
     }
-    
   }, [])
+
+
+  async function reloadChannels(){
+    setrooms(await fetchAllChannels())
+    socket.emit('joinRooms', fetchAllChannels())
+    console.log("roosms joined")
+  }
+
 
   useEffect(() => {
     setSocket(socketIOClient(ENDPOINT));
     console.log("socket definited")
   }, [])
-
-  useEffect(() => {
-    //join all Rooms
-    if(socket){
-      socket.emit('joinRooms', rooms)
-    }
-  }, [socket])
-
-
 
   return (
     <Router>
@@ -81,16 +80,12 @@ function App() {
           <MainLogin setToken={setToken} setcredentials={setcredentials}></MainLogin>
         </Route>
         <Route path="/home" exact>
-          <Sidebar rooms={rooms} kontakte={kontakte} setCurrentRoom={setCurrentRoom}></Sidebar>
-          <MainComponent socket={socket} currentRoom={currentRoom} credentials={credentials}></MainComponent>
+          {openSidebar? <Sidebar username={credentials.username} openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} reloadChannels={reloadChannels} rooms={rooms} setCurrentRoom={setCurrentRoom}></Sidebar>: null}
+          <MainComponent socket={socket} currentRoom={currentRoom} credentials={credentials} openSidebar={openSidebar} setOpenSidebar={setOpenSidebar}></MainComponent>
         </Route>
         <Route path="/channel/:id" exact>
-          <Sidebar rooms={rooms} kontakte={kontakte} setCurrentRoom={setCurrentRoom}></Sidebar>
-          <MainComponent socket={socket} currentRoom={currentRoom} credentials={credentials}></MainComponent>
-        </Route>
-        <Route path="/kontakt/:id" exact>
-          <Sidebar rooms={rooms} kontakte={kontakte} setCurrentRoom={setCurrentRoom}></Sidebar>
-          <MainComponent socket={socket} currentRoom={currentRoom} credentials={credentials}></MainComponent>
+          {openSidebar? <Sidebar username={credentials.username} openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} reloadChannels={reloadChannels} rooms={rooms} setCurrentRoom={setCurrentRoom}></Sidebar>: null}
+          <MainComponent socket={socket} currentRoom={currentRoom} credentials={credentials} openSidebar={openSidebar} setOpenSidebar={setOpenSidebar}></MainComponent>
         </Route>
       </Switch>
     </Router>

@@ -7,7 +7,7 @@ export default function MessageInputComponent({socket, currentRoom, credentials}
     const [message, setmessage] = useState("initialState")
     
     return (
-        <div className="border border-gray-600 rounded-md mx-3 mb-3 bottom-0"
+        <div className="border border-gray-600 rounded-md mb-3 bottom-0 w-full"
             onMouseEnter={()=>setAction(true)}
             onMouseLeave={()=>setAction(false)}
         >

@@ -1,12 +1,12 @@
 import React,{useState} from 'react'
-import {AiOutlineSlack} from 'react-icons/ai'
+import {FaSlack} from 'react-icons/fa'
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Link, useHistory} from "react-router-dom";
 import MainRegister from './MainRegister';
 
 
 async function loginUser(credentials) {
-    console.log("login")
+    console.log("login", credentials)
     return fetch('http://localhost:5000/login', {
       method: 'POST',
       headers: {
@@ -20,45 +20,64 @@ async function loginUser(credentials) {
 
 export default function MainLogin({setToken, setcredentials}) {
 
-  const history = useHistory()
-
+    const history = useHistory()
+    const [response, setresponse] = useState()
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
 
 
     const handleSubmit = async e => {
         e.preventDefault();
-        const token = await loginUser({
+        const responseFetch = await loginUser({
           username,
           password
         });
-        //setToken(token);
-        setcredentials(
-          {
-            username:username,
-          }
-        )
-        history.push("/home")
+
+        console.log(responseFetch)
+        if(responseFetch.response){
+          setresponse(responseFetch.response)
+        } else{
+          
+          setToken(username);
+          setcredentials(
+            {
+              username:username,
+            }
+          )
+          history.push("/home")
+        }
     }
     
 
     return (
-        <div className=" flex flex-col align-middle">
-        <h1>Please Log In</h1>
-        <Link to="/register">Register</Link>
-        <form onSubmit={handleSubmit}>
-          <label>
-            <p>Username</p>
-            <input type="text" onChange={e => setUserName(e.target.value)}/>
-          </label>
-          <label>
-            <p>Password</p>
-            <input type="password" onChange={e => setPassword(e.target.value)} />
-          </label>
-          <div>
-            <button type="submit">Submit</button>
+      <div className=" flex justify-center ">
+        <div className=" w-3/4 md:w-1/3">
+          <div className=" my-10 flex flex-row items-center justify-center">
+            <FaSlack size="50"></FaSlack>
+            <h1 className="ml-2 text-5xl">Slack Lite</h1>
           </div>
-        </form>
+          <div className="flex justify-center">
+            <p className="text-2xl">Please Log In</p>
+          </div>
+          <div className="flex flex-row justify-center mb-5">
+            <p className="mr-2 text-sm">You do not have an account?</p>
+            <Link className="text-blue-700 underline text-sm" to="/register">Register</Link>
+          </div>
+          <form onSubmit={handleSubmit} className="">
+            <p className="text-red-500">{response}</p>
+            <div className="mb-5">
+              <p>Username</p>
+              <input placeholder="max mustermann" className=" px-2 w-full outline-none border border-gray-400 rounded-md p-1" type="text" onChange={e => setUserName(e.target.value)}/>
+            </div>
+            <div className="mb-9">
+              <p>Password</p>
+              <input placeholder="your password" className=" px-2 w-full outline-none border border-gray-400 rounded-md p-1" type="password" onChange={e => setPassword(e.target.value)} />
+            </div>
+            <div>
+              <button className="w-full outline-none rounded-md bg-primary p-2 text-white" type="submit">Sign in</button>
+            </div>
+          </form>
+        </div>
       </div>
     )
 }
